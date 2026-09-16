@@ -207,5 +207,86 @@ document.getElementById("report").innerHTML=arabic+english;
 
 </script>
 
-</body>
+<script>
+function generateReport(){
+
+  let title = document.getElementById("title").value.trim();
+  let language = document.getElementById("language").value;
+
+  if(title === ""){
+    alert("اكتبي عنوان التقرير أولاً ❤️");
+    return;
+  }
+
+  let arabic = 
+    <h1>${title}</h1>
+
+    <h2>المقدمة</h2>
+    <p>
+    يتناول هذا التقرير موضوع ${title}، مع توضيح المفاهيم
+    الأساسية وأهميته وتطبيقاته العلمية.
+    </p>
+
+    <h2>التعريف</h2>
+    <p>
+    ${title} هو موضوع مهم في المجال العلمي، وتساعد دراسته
+    على فهم المبادئ الأساسية المرتبطة به.
+    </p>
+
+    <h2>الأهمية</h2>
+    <p>
+    تكمن أهمية ${title} في دوره في تطوير المعرفة العلمية
+    وفهم التطبيقات المختلفة المرتبطة به.
+    </p>
+
+    <h2>الخاتمة</h2>
+    <p>
+    في الختام، تساعد دراسة ${title} على فهم أهم المعلومات
+    والمفاهيم المتعلقة بهذا الموضوع.
+    </p>
+  ;
+
+  let english = 
+    <hr>
+
+    <h1>${title}</h1>
+
+    <h2>Introduction</h2>
+    <p>
+    This report discusses ${title} and explains its main
+    concepts, importance, and scientific applications.
+    </p>
+
+    <h2>Definition</h2>
+    <p>
+    ${title} is an important scientific topic that helps
+    students understand its basic principles.
+    </p>
+
+    <h2>Importance</h2>
+    <p>
+    The importance of ${title} is related to scientific
+    knowledge and its practical applications.
+    </p>
+
+    <h2>Conclusion</h2>
+    <p>
+    In conclusion, studying ${title} helps students understand
+    its main concepts and applications.
+    </p>
+  ;
+
+  let result;
+
+  if(language === "ar"){
+    result = arabic;
+  }else if(language === "en"){
+    result = english;
+  }else{
+    result = arabic + english;
+  }
+
+  document.getElementById("report").innerHTML = result;
+}
+</script></body>
 </html>
