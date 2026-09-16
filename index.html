@@ -1,1 +1,124 @@
+<div class="report-info">
+        <div><strong>اسم الطالب:</strong> <span id="rStudent"></span></div>
+        <div><strong>القسم / المرحلة:</strong> <span id="rDepartment"></span></div>
+        <div><strong>المادة:</strong> <span id="rSubject"></span></div>
+      </div>
 
+      <div class="section">
+        <h3>المقدمة</h3>
+        <p id="rIntro"></p>
+      </div>
+
+      <div class="section">
+        <h3>المحتوى</h3>
+        <p id="rContent"></p>
+      </div>
+
+      <div class="section">
+        <h3>الاستنتاج</h3>
+        <p id="rConclusion"></p>
+      </div>
+
+      <div class="section">
+        <h3>المصادر</h3>
+        <p id="rReferences"></p>
+      </div>
+
+      <div class="footer">
+        تم إنشاء التقرير بواسطة Reportly
+      </div>
+
+      <div class="buttons">
+        <button class="primary" onclick="window.print()">
+          🖨️ طباعة / حفظ PDF
+        </button>
+
+        <button class="secondary" onclick="editReport()">
+          ✏️ تعديل التقرير
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+function value(id) {
+  return document.getElementById(id).value.trim();
+}
+
+function showText(text) {
+  if (!text) return "لم تتم إضافة معلومات.";
+  
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\n/g, "<br>");
+}
+
+function generateReport() {
+
+  const title = value("title");
+
+  if (!title) {
+    alert("اكتب عنوان التقرير أولاً ✨");
+    return;
+  }
+
+  document.getElementById("rTitle").innerHTML = showText(title);
+  document.getElementById("rStudent").innerHTML = showText(value("student"));
+  document.getElementById("rDepartment").innerHTML = showText(value("department"));
+  document.getElementById("rSubject").innerHTML = showText(value("subject"));
+
+  document.getElementById("rIntro").innerHTML = showText(value("intro"));
+  document.getElementById("rContent").innerHTML = showText(value("content"));
+  document.getElementById("rConclusion").innerHTML = showText(value("conclusion"));
+  document.getElementById("rReferences").innerHTML = showText(value("references"));
+
+  document.getElementById("formCard").style.display = "none";
+  document.getElementById("report").style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function editReport() {
+
+  document.getElementById("report").style.display = "none";
+  document.getElementById("formCard").style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function clearForm() {
+
+  const fields = [
+    "title",
+    "student",
+    "department",
+    "subject",
+    "intro",
+    "content",
+    "conclusion",
+    "references"
+  ];
+
+  fields.forEach(function(id) {
+    document.getElementById(id).value = "";
+  });
+}
+
+</script>
+
+</body>
+</html>
