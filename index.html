@@ -6,50 +6,206 @@
 <title>Reportly AI 🍂</title>
 
 <style>
-*{box-sizing:border-box}
-
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f4eadc;
-color:#4a3024;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4eadc;
+  color:#4a3024;
 }
 
 header{
-background:linear-gradient(135deg,#5b321f,#914d2c,#d28a43);
-color:white;
-padding:35px 20px;
-text-align:center;
-border-radius:0 0 30px 30px;
-}
-
-header h1{
-margin:0;
-font-size:38px;
-}
-
-header p{
-margin:10px 0 0;
-font-size:17px;
+  background:#754225;
+  color:white;
+  text-align:center;
+  padding:35px 15px;
 }
 
 .container{
-max-width:950px;
-margin:auto;
-padding:20px;
+  max-width:800px;
+  margin:auto;
+  padding:20px;
 }
 
 .card{
-background:#fffaf3;
-padding:22px;
-margin-bottom:20px;
-border-radius:20px;
-box-shadow:0 6px 20px rgba(70,40,20,.12);
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:15px;
+  box-shadow:0 5px 15px #0002;
 }
 
-h2{color:#754225}
+h1,h2{
+  color:#754225;
+}
 
-label{
-display:block;
-margin-top:15px;
-font-weight
+header h1{
+  color:white;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  margin:8px 0 15px;
+  border:1px solid #c9a27e;
+  border-radius:10px;
+  font-size:16px;
+}
+
+button{
+  background:#87502f;
+  color:white;
+  border:0;
+  padding:12px 18px;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+#report{
+  background:#fffaf3;
+  padding:20px;
+  min-height:300px;
+  line-height:1.9;
+  border-radius:10px;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🍂 Reportly AI</h1>
+<p>مساعدك الذكي لإنشاء التقارير الدراسية</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>✨ إنشاء تقرير</h2>
+
+<label>عنوان التقرير</label>
+
+<input id="title" placeholder="اكتبي عنوان التقرير">
+
+<label>لغة التقرير</label>
+
+<select id="language">
+<option value="both">العربية + English</option>
+<option value="ar">العربية</option>
+<option value="en">English</option>
+</select>
+
+<br><br>
+
+<button onclick="generateReport()">✨ إنشاء التقرير</button>
+
+</div>
+
+<div class="card">
+
+<h2>📝 التقرير</h2>
+
+<div id="report">
+اكتبي عنوان التقرير واضغطي إنشاء التقرير ✨
+</div>
+
+</div>
+
+</div>
+
+<footer>
+🍁 Reportly AI — صُمم للطلاب
+</footer>
+
+<script>
+
+function generateReport(){
+
+let title=document.getElementById("title").value.trim();
+let language=document.getElementById("language").value;
+
+if(title===""){
+alert("اكتبي عنوان التقرير أولاً ❤️");
+return;
+}
+
+let arabic=
+<h1>${title}</h1>
+
+<h2>المقدمة</h2>
+<p>
+يتناول هذا التقرير موضوع ${title}، مع توضيح أهم المفاهيم
+والمعلومات الأساسية المرتبطة به.
+</p>
+
+<h2>التعريف</h2>
+<p>
+يُعد ${title} من الموضوعات المهمة في المجال العلمي،
+وتساعد دراسته على فهم المبادئ الأساسية والتطبيقات المرتبطة به.
+</p>
+
+<h2>الأهمية</h2>
+<p>
+تكمن أهمية ${title} في دوره في تطوير المعرفة العلمية
+وفهم التطبيقات المتعلقة بهذا الموضوع.
+</p>
+
+<h2>الخاتمة</h2>
+<p>
+في الختام، تساعد دراسة ${title} على فهم أهم المفاهيم
+والتطبيقات المرتبطة بالموضوع.
+</p>
+;
+
+let english=
+<hr>
+
+<h1>${title}</h1>
+
+<h2>Introduction</h2>
+<p>
+This report discusses ${title} and explains its main concepts,
+importance, and applications.
+</p>
+
+<h2>Definition</h2>
+<p>
+${title} is an important scientific topic.
+Studying it helps students understand its basic principles.
+</p>
+
+<h2>Importance</h2>
+<p>
+The importance of ${title} is related to scientific knowledge
+and its practical applications.
+</p>
+
+<h2>Conclusion</h2>
+<p>
+In conclusion, studying ${title} provides a better understanding
+of its main concepts and applications.
+</p>
+;
+
+if(language==="ar"){
+document.getElementById("report").innerHTML=arabic;
+}
+else if(language==="en"){
+document.getElementById("report").innerHTML=english;
+}
+else{
+document.getElementById("report").innerHTML=arabic+english;
+}
+
+}
+
+</script>
+
+</body>
+</html>
