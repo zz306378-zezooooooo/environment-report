@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Reportly AI 🍂</title>
 
 <style>
+
 body{
   margin:0;
   font-family:Arial,sans-serif;
@@ -18,6 +21,10 @@ header{
   color:white;
   text-align:center;
   padding:35px 15px;
+}
+
+header h1{
+  color:white;
 }
 
 .container{
@@ -38,10 +45,6 @@ h1,h2{
   color:#754225;
 }
 
-header h1{
-  color:white;
-}
-
 input,select{
   width:100%;
   padding:12px;
@@ -49,6 +52,7 @@ input,select{
   border:1px solid #c9a27e;
   border-radius:10px;
   font-size:16px;
+  box-sizing:border-box;
 }
 
 button{
@@ -61,6 +65,10 @@ button{
   cursor:pointer;
 }
 
+button:hover{
+  background:#6d3e24;
+}
+
 #report{
   background:#fffaf3;
   padding:20px;
@@ -69,19 +77,34 @@ button{
   border-radius:10px;
 }
 
+#report h1{
+  text-align:center;
+}
+
+#report h2{
+  margin-top:25px;
+}
+
 footer{
   text-align:center;
   padding:25px;
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
+
 <h1>🍂 Reportly AI</h1>
-<p>مساعدك الذكي لإنشاء التقارير الدراسية</p>
+
+<p>
+مساعدك الذكي لإنشاء التقارير الدراسية
+</p>
+
 </header>
+
 
 <div class="container">
 
@@ -91,202 +114,194 @@ footer{
 
 <label>عنوان التقرير</label>
 
-<input id="title" placeholder="اكتبي عنوان التقرير">
+<input
+  id="title"
+  type="text"
+  placeholder="اكتبي عنوان التقرير"
+>
 
 <label>لغة التقرير</label>
 
 <select id="language">
-<option value="both">العربية + English</option>
-<option value="ar">العربية</option>
-<option value="en">English</option>
+
+<option value="both">
+العربية + English
+</option>
+
+<option value="ar">
+العربية
+</option>
+
+<option value="en">
+English
+</option>
+
 </select>
 
 <br><br>
 
-<button onclick="generateReport()">✨ إنشاء التقرير</button>
+<button onclick="generateReport()">
+✨ إنشاء التقرير
+</button>
 
 </div>
+
 
 <div class="card">
 
 <h2>📝 التقرير</h2>
 
 <div id="report">
+
 اكتبي عنوان التقرير واضغطي إنشاء التقرير ✨
-</div>
 
 </div>
 
 </div>
+
+</div>
+
 
 <footer>
+
 🍁 Reportly AI — صُمم للطلاب
+
 </footer>
 
+
 <script>
 
 function generateReport(){
 
-let title=document.getElementById("title").value.trim();
-let language=document.getElementById("language").value;
+  let title = document
+    .getElementById("title")
+    .value
+    .trim();
 
-if(title===""){
-alert("اكتبي عنوان التقرير أولاً ❤️");
-return;
-}
+  let language = document
+    .getElementById("language")
+    .value;
 
-let arabic=
-<h1>${title}</h1>
-
-<h2>المقدمة</h2>
-<p>
-يتناول هذا التقرير موضوع ${title}، مع توضيح أهم المفاهيم
-والمعلومات الأساسية المرتبطة به.
-</p>
-
-<h2>التعريف</h2>
-<p>
-يُعد ${title} من الموضوعات المهمة في المجال العلمي،
-وتساعد دراسته على فهم المبادئ الأساسية والتطبيقات المرتبطة به.
-</p>
-
-<h2>الأهمية</h2>
-<p>
-تكمن أهمية ${title} في دوره في تطوير المعرفة العلمية
-وفهم التطبيقات المتعلقة بهذا الموضوع.
-</p>
-
-<h2>الخاتمة</h2>
-<p>
-في الختام، تساعد دراسة ${title} على فهم أهم المفاهيم
-والتطبيقات المرتبطة بالموضوع.
-</p>
-;
-
-let english=
-<hr>
-
-<h1>${title}</h1>
-
-<h2>Introduction</h2>
-<p>
-This report discusses ${title} and explains its main concepts,
-importance, and applications.
-</p>
-
-<h2>Definition</h2>
-<p>
-${title} is an important scientific topic.
-Studying it helps students understand its basic principles.
-</p>
-
-<h2>Importance</h2>
-<p>
-The importance of ${title} is related to scientific knowledge
-and its practical applications.
-</p>
-
-<h2>Conclusion</h2>
-<p>
-In conclusion, studying ${title} provides a better understanding
-of its main concepts and applications.
-</p>
-;
-
-if(language==="ar"){
-document.getElementById("report").innerHTML=arabic;
-}
-else if(language==="en"){
-document.getElementById("report").innerHTML=english;
-}
-else{
-document.getElementById("report").innerHTML=arabic+english;
-}
-
-}
-
-</script>
-
-<script>
-function generateReport(){
-
-  let title = document.getElementById("title").value.trim();
-  let language = document.getElementById("language").value;
 
   if(title === ""){
+
     alert("اكتبي عنوان التقرير أولاً ❤️");
+
     return;
   }
 
-  let arabic = 
+
+  let arabic = `
+
     <h1>${title}</h1>
 
     <h2>المقدمة</h2>
+
     <p>
-    يتناول هذا التقرير موضوع ${title}، مع توضيح المفاهيم
-    الأساسية وأهميته وتطبيقاته العلمية.
+    يتناول هذا التقرير موضوع ${title}، مع توضيح أهم المفاهيم
+    والمعلومات الأساسية المرتبطة به.
     </p>
+
 
     <h2>التعريف</h2>
+
     <p>
-    ${title} هو موضوع مهم في المجال العلمي، وتساعد دراسته
-    على فهم المبادئ الأساسية المرتبطة به.
+    يُعد ${title} من الموضوعات المهمة في المجال العلمي،
+    وتساعد دراسته على فهم المبادئ الأساسية والتطبيقات
+    المرتبطة بهذا الموضوع.
     </p>
 
+
     <h2>الأهمية</h2>
+
     <p>
     تكمن أهمية ${title} في دوره في تطوير المعرفة العلمية
     وفهم التطبيقات المختلفة المرتبطة به.
     </p>
 
+
     <h2>الخاتمة</h2>
+
     <p>
     في الختام، تساعد دراسة ${title} على فهم أهم المعلومات
-    والمفاهيم المتعلقة بهذا الموضوع.
+    والمفاهيم والتطبيقات المتعلقة بهذا الموضوع.
     </p>
-  ;
 
-  let english = 
+  `;
+
+
+  let english = `
+
     <hr>
 
     <h1>${title}</h1>
 
+
     <h2>Introduction</h2>
+
     <p>
     This report discusses ${title} and explains its main
     concepts, importance, and scientific applications.
     </p>
 
+
     <h2>Definition</h2>
+
     <p>
     ${title} is an important scientific topic that helps
     students understand its basic principles.
     </p>
 
+
     <h2>Importance</h2>
+
     <p>
     The importance of ${title} is related to scientific
     knowledge and its practical applications.
     </p>
 
+
     <h2>Conclusion</h2>
+
     <p>
     In conclusion, studying ${title} helps students understand
     its main concepts and applications.
     </p>
-  ;
+
+  `;
+
 
   let result;
 
+
   if(language === "ar"){
+
     result = arabic;
-  }else if(language === "en"){
-    result = english;
-  }else{
-    result = arabic + english;
+
   }
 
-  document.getElementById("report").innerHTML = result;
+  else if(language === "en"){
+
+    result = english;
+
+  }
+
+  else{
+
+    result = arabic + english;
+
+  }
+
+
+  document
+    .getElementById("report")
+    .innerHTML = result;
+
 }
-</script></body>
+
+</script>
+
+
+</body>
+
 </html>
