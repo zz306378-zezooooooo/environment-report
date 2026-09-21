@@ -1,4 +1,24 @@
-<button id="generateBtn" onclick="generateReport()">
+<label for="title">عنوان التقرير</label>
+<input
+  id="title"
+  type="text"
+  placeholder="اكتبي عنوان التقرير هنا"
+>
+
+<label for="language">لغة التقرير</label>
+<select id="language">
+  <option value="Arabic">العربية</option>
+  <option value="English">English</option>
+  <option value="Arabic and English">العربية + English</option>
+</select>
+
+<label for="pages">عدد الصفحات</label>
+<select id="pages">
+  <option value="2">صفحتان</option>
+  <option value="3" selected>3 صفحات</option>
+  <option value="4">4 صفحات</option>
+  <option value="5">5 صفحات</option>
+</select><button id="generateBtn" onclick="generateReport()">
         ✨ إنشاء التقرير بالذكاء الاصطناعي
       </button>
 
