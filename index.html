@@ -1,307 +1,192 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Reportly AI 🍂</title>
+<title>Reportly</title>
 
 <style>
+:root{
+  --main:#a65f35;
+  --light:#fff7ef;
+  --text:#3b2920;
+}
+
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4eadc;
-  color:#4a3024;
+  background:var(--light);
+  color:var(--text);
+  font-family:Arial,Tahoma,sans-serif;
 }
 
 header{
-  background:#754225;
+  background:var(--main);
   color:white;
+  padding:25px 15px;
   text-align:center;
-  padding:35px 15px;
 }
 
-header h1{
-  color:white;
-}
+header h1{margin:0;font-size:32px}
+header p{margin:8px 0 0}
 
 .container{
-  max-width:800px;
+  max-width:900px;
   margin:auto;
-  padding:20px;
+  padding:20px 15px;
 }
 
-.card{
+.card,#report{
   background:white;
-  padding:20px;
+  padding:22px;
+  border-radius:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
   margin-bottom:20px;
-  border-radius:15px;
-  box-shadow:0 5px 15px #0002;
 }
 
-h1,h2{
-  color:#754225;
+h2{color:var(--main)}
+
+label{
+  display:block;
+  font-weight:bold;
+  margin-top:15px;
+  margin-bottom:7px;
 }
 
 input,select{
   width:100%;
-  padding:12px;
-  margin:8px 0 15px;
-  border:1px solid #c9a27e;
+  padding:13px;
+  border:1px solid #ddd;
   border-radius:10px;
   font-size:16px;
-  box-sizing:border-box;
+  background:white;
 }
 
 button{
-  background:#87502f;
-  color:white;
+  width:100%;
+  padding:14px;
+  margin-top:18px;
   border:0;
-  padding:12px 18px;
-  border-radius:10px;
-  font-size:16px;
+  border-radius:12px;
+  background:var(--main);
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+#report{display:none;line-height:1.9}
+
+.report-title{
+  text-align:center;
+  color:var(--main);
+  margin-bottom:30px;
+}
+
+.section{margin-top:25px}
+.section h3{color:var(--main)}
+
+.color-row{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.color{
+  width:42px;
+  height:42px;
+  border-radius:50%;
   cursor:pointer;
+  box-shadow:0 0 0 1px #aaa;
 }
 
-button:hover{
-  background:#6d3e24;
+.color.active{
+  box-shadow:0 0 0 3px #222;
 }
 
-#report{
-  background:#fffaf3;
-  padding:20px;
-  min-height:300px;
-  line-height:1.9;
-  border-radius:10px;
+.preview-image{
+  max-width:100%;
+  max-height:350px;
+  display:block;
+  margin:20px auto;
+  border-radius:12px;
 }
 
-#report h1{
-  text-align:center;
+.actions{
+  display:flex;
+  gap:10px;
 }
 
-#report h2{
-  margin-top:25px;
+.actions button{flex:1}
+
+.secondary{background:#555}
+
+@media(max-width:600px){
+  .actions{flex-direction:column}
 }
 
-footer{
-  text-align:center;
-  padding:25px;
+@media print{
+  header,.card,.actions{display:none!important}
+  #report{
+    display:block!important;
+    box-shadow:none;
+  }
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-
-<h1>🍂 Reportly AI</h1>
-
-<p>
-مساعدك الذكي لإنشاء التقارير الدراسية
-</p>
-
+<h1>📚 Reportly</h1>
+<p>صمّم تقريرك بالطريقة التي تريدها</p>
 </header>
-
 
 <div class="container">
 
 <div class="card">
 
-<h2>✨ إنشاء تقرير</h2>
+<h2>⚙️ إعدادات التقرير</h2>
 
 <label>عنوان التقرير</label>
+<input id="title" type="text" placeholder="مثلاً: تأثير التلوث على صحة الإنسان">
 
-<input
-  id="title"
-  type="text"
-  placeholder="اكتبي عنوان التقرير"
->
-
-<label>لغة التقرير</label>
-
+<label>اللغة</label>
 <select id="language">
-
-<option value="both">
-العربية + English
-</option>
-
-<option value="ar">
-العربية
-</option>
-
-<option value="en">
-English
-</option>
-
+<option value="ar">العربية</option>
+<option value="en">English</option>
 </select>
 
-<br><br>
-
-<button onclick="generateReport()">
-✨ إنشاء التقرير
-</button>
-
-</div>
-
-
-<div class="card">
-
-<h2>📝 التقرير</h2>
-
-<div id="report">
-
-اكتبي عنوان التقرير واضغطي إنشاء التقرير ✨
-
-</div>
-
-</div>
-
-</div>
-
-
-<footer>
-
-🍁 Reportly AI — صُمم للطلاب
-
-</footer>
-
-
-<script>
-
-function generateReport(){
-
-  let title = document
-    .getElementById("title")
-    .value
-    .trim();
-
-  let language = document
-    .getElementById("language")
-    .value;
-
-
-  if(title === ""){
-
-    alert("اكتبي عنوان التقرير أولاً ❤️");
-
-    return;
-  }
-
-
-  let arabic = `
-
-    <h1>${title}</h1>
-
-    <h2>المقدمة</h2>
-
-    <p>
-    يتناول هذا التقرير موضوع ${title}، مع توضيح أهم المفاهيم
-    والمعلومات الأساسية المرتبطة به.
-    </p>
-
-
-    <h2>التعريف</h2>
-
-    <p>
-    يُعد ${title} من الموضوعات المهمة في المجال العلمي،
-    وتساعد دراسته على فهم المبادئ الأساسية والتطبيقات
-    المرتبطة بهذا الموضوع.
-    </p>
-
-
-    <h2>الأهمية</h2>
-
-    <p>
-    تكمن أهمية ${title} في دوره في تطوير المعرفة العلمية
-    وفهم التطبيقات المختلفة المرتبطة به.
-    </p>
-
-
-    <h2>الخاتمة</h2>
-
-    <p>
-    في الختام، تساعد دراسة ${title} على فهم أهم المعلومات
-    والمفاهيم والتطبيقات المتعلقة بهذا الموضوع.
-    </p>
-
-  `;
-
-
-  let english = `
-
-    <hr>
-
-    <h1>${title}</h1>
-
-
-    <h2>Introduction</h2>
-
-    <p>
-    This report discusses ${title} and explains its main
-    concepts, importance, and scientific applications.
-    </p>
-
-
-    <h2>Definition</h2>
-
-    <p>
-    ${title} is an important scientific topic that helps
-    students understand its basic principles.
-    </p>
-
-
-    <h2>Importance</h2>
-
-    <p>
-    The importance of ${title} is related to scientific
-    knowledge and its practical applications.
-    </p>
-
-
-    <h2>Conclusion</h2>
-
-    <p>
-    In conclusion, studying ${title} helps students understand
-    its main concepts and applications.
-    </p>
-
-  `;
-
-
-  let result;
-
-
-  if(language === "ar"){
-
-    result = arabic;
-
-  }
-
-  else if(language === "en"){
-
-    result = english;
-
-  }
-
-  else{
-
-    result = arabic + english;
-
-  }
-
-
-  document
-    .getElementById("report")
-    .innerHTML = result;
-
-}
-
-</script>
-
-
-</body>
-
-</html>
+<label>نوع الخط</label>
+<select id="font">
+<option value="Arial">Arial</option>
+<option value="Tahoma">Tahoma</option>
+<option value="Georgia">Georgia</option>
+<option value="Times New Roman">Times New Roman</option>
+</select>
+
+<label>حجم الخط</label>
+<select id="fontSize">
+<option value="14px">14</option>
+<option value="16px" selected>16</option>
+<option value="18px">18</option>
+<option value="20px">20</option>
+<option value="22px">22</option>
+</select>
+
+<label>عدد الصفحات</label>
+<select id="pages">
+<option value="2">2 صفحات</option>
+<option value="3" selected>3 صفحات</option>
+<option value="5">5 صفحات</option>
+<option value="7">7 صفحات</option>
+<option value="10">10 صفحات</option>
+</select>
+
+<label>لون التطبيق والتقرير</label>
+
+<div class="color-row">
+
+<div class="color active"
+style="background
