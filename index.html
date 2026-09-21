@@ -1,192 +1,109 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reportly</title>
+<button id="generateBtn" onclick="generateReport()">
+        ✨ إنشاء التقرير بالذكاء الاصطناعي
+      </button>
 
-<style>
-:root{
-  --main:#a65f35;
-  --light:#fff7ef;
-  --text:#3b2920;
-}
+      <div id="status"></div>
 
-*{box-sizing:border-box}
+    </section>
 
-body{
-  margin:0;
-  background:var(--light);
-  color:var(--text);
-  font-family:Arial,Tahoma,sans-serif;
-}
+    <section class="card" id="reportBox">
 
-header{
-  background:var(--main);
-  color:white;
-  padding:25px 15px;
-  text-align:center;
-}
+      <h2>📄 التقرير</h2>
 
-header h1{margin:0;font-size:32px}
-header p{margin:8px 0 0}
+      <div id="report"></div>
 
-.container{
-  max-width:900px;
-  margin:auto;
-  padding:20px 15px;
-}
+      <button class="print-btn" onclick="window.print()">
+        🖨️ طباعة / حفظ PDF
+      </button>
 
-.card,#report{
-  background:white;
-  padding:22px;
-  border-radius:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.08);
-  margin-bottom:20px;
-}
+    </section>
 
-h2{color:var(--main)}
+  </main>
 
-label{
-  display:block;
-  font-weight:bold;
-  margin-top:15px;
-  margin-bottom:7px;
-}
+  <div class="footer">
+    Reportly © 2026
+  </div>
 
-input,select{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  font-size:16px;
-  background:white;
-}
 
-button{
-  width:100%;
-  padding:14px;
-  margin-top:18px;
-  border:0;
-  border-radius:12px;
-  background:var(--main);
-  color:white;
-  font-size:17px;
-  font-weight:bold;
-}
+  <script>
 
-#report{display:none;line-height:1.9}
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycby4z9GdePfouA870tBQgZ2z7JcSIVI1ebEeGMgjSYHuIzJiKFIvPgb3bar0wKa3boEy5w/exec";
 
-.report-title{
-  text-align:center;
-  color:var(--main);
-  margin-bottom:30px;
-}
 
-.section{margin-top:25px}
-.section h3{color:var(--main)}
+    async function generateReport() {
 
-.color-row{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:10px;
-}
+      const title = document.getElementById("title").value.trim();
+      const language = document.getElementById("language").value;
+      const pages = document.getElementById("pages").value;
 
-.color{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  cursor:pointer;
-  box-shadow:0 0 0 1px #aaa;
-}
+      const button = document.getElementById("generateBtn");
+      const status = document.getElementById("status");
+      const reportBox = document.getElementById("reportBox");
+      const report = document.getElementById("report");
 
-.color.active{
-  box-shadow:0 0 0 3px #222;
-}
 
-.preview-image{
-  max-width:100%;
-  max-height:350px;
-  display:block;
-  margin:20px auto;
-  border-radius:12px;
-}
+      if (!title) {
+        status.textContent = "اكتبي عنوان التقرير أولاً.";
+        return;
+      }
 
-.actions{
-  display:flex;
-  gap:10px;
-}
 
-.actions button{flex:1}
+      button.disabled = true;
+      button.textContent = "⏳ جاري إنشاء التقرير...";
+      status.textContent = "الذكاء الاصطناعي يكتب التقرير الآن...";
+      reportBox.style.display = "none";
+      report.textContent = "";
 
-.secondary{background:#555}
 
-@media(max-width:600px){
-  .actions{flex-direction:column}
-}
+      try {
 
-@media print{
-  header,.card,.actions{display:none!important}
-  #report{
-    display:block!important;
-    box-shadow:none;
-  }
-}
-</style>
-</head>
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({
+            title: title,
+            language: language,
+            pages: Number(pages)
+          })
+        });
 
-<body>
 
-<header>
-<h1>📚 Reportly</h1>
-<p>صمّم تقريرك بالطريقة التي تريدها</p>
-</header>
+        const data = await response.json();
 
-<div class="container">
 
-<div class="card">
+        if (!data.success) {
+          throw new Error(
+            data.error || "حدث خطأ من خدمة الذكاء الاصطناعي."
+          );
+        }
 
-<h2>⚙️ إعدادات التقرير</h2>
 
-<label>عنوان التقرير</label>
-<input id="title" type="text" placeholder="مثلاً: تأثير التلوث على صحة الإنسان">
+        report.textContent = data.report;
+        reportBox.style.display = "block";
+        status.textContent = "✅ تم إنشاء التقرير بنجاح";
 
-<label>اللغة</label>
-<select id="language">
-<option value="ar">العربية</option>
-<option value="en">English</option>
-</select>
 
-<label>نوع الخط</label>
-<select id="font">
-<option value="Arial">Arial</option>
-<option value="Tahoma">Tahoma</option>
-<option value="Georgia">Georgia</option>
-<option value="Times New Roman">Times New Roman</option>
-</select>
+      } catch (error) {
 
-<label>حجم الخط</label>
-<select id="fontSize">
-<option value="14px">14</option>
-<option value="16px" selected>16</option>
-<option value="18px">18</option>
-<option value="20px">20</option>
-<option value="22px">22</option>
-</select>
+        console.error(error);
 
-<label>عدد الصفحات</label>
-<select id="pages">
-<option value="2">2 صفحات</option>
-<option value="3" selected>3 صفحات</option>
-<option value="5">5 صفحات</option>
-<option value="7">7 صفحات</option>
-<option value="10">10 صفحات</option>
-</select>
+        status.textContent =
+          "❌ حدث خطأ: " + error.message;
 
-<label>لون التطبيق والتقرير</label>
+      } finally {
 
-<div class="color-row">
+        button.disabled = false;
+        button.textContent =
+          "✨ إنشاء التقرير بالذكاء الاصطناعي";
 
-<div class="color active"
-style="background
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
